@@ -1,4 +1,5 @@
 import axios from "axios";
+import "./App.css";
 import { useEffect, useState } from "react";
 import {usePosition} from 'use-position';
 import HavaDurumu from "./Components/HavaDurumu";
@@ -9,10 +10,11 @@ const App = () => {
 
     const getWeatherData = async (lat, lon) => {
         const key = process.env.REACT_APP_WEATHER_API_KEY;
+        const lang = navigator.language.split("-")[0];
 
         try {
             const {data} = await axios.get(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`
+                `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=${lang}`
                 );
             setWeather(data);
         }
@@ -27,7 +29,6 @@ const App = () => {
 
     return (
         <div>
-            <h2>Hava Durumu</h2>
             <HavaDurumu weather={weather}/>
         </div>
     )
